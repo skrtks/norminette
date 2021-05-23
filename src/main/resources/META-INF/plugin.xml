@@ -5,7 +5,10 @@
 
     <!-- Product and plugin compatibility requirements -->
     <!-- https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html -->
-    <depends>com.intellij.modules.platform</depends>
+    <!-- Required for core CLion functionality -->
+    <!-- Required for core CLion functionality -->
+    <depends>com.intellij.modules.clion</depends>
+    <depends>com.intellij.modules.lang</depends>
 
     <extensions defaultExtensionNs="com.intellij">
         <applicationService serviceImplementation="com.github.skrtks.norminette.services.MyApplicationService"/>
@@ -16,4 +19,11 @@
         <listener class="com.github.skrtks.norminette.listeners.MyProjectManagerListener"
                   topic="com.intellij.openapi.project.ProjectManagerListener"/>
     </applicationListeners>
+    <actions>
+        <action id="norminette.Norminette" class="norminette.Norminette" text="Run Norminette"
+                description="Runs Norminette on the current file and highlights errors">
+            <add-to-group group-id="ToolsMenu" anchor="last"/>
+            <keyboard-shortcut keymap="$default" first-keystroke="ctrl alt N"/>
+        </action>
+    </actions>
 </idea-plugin>
