@@ -15,15 +15,12 @@
         <projectService serviceImplementation="com.github.skrtks.norminette.services.MyProjectService"/>
     </extensions>
 
+    <extensions defaultExtensionNs="cidr.lang">
+        <standaloneInspectionToolProvider implementation="norminette.NorminetteInspectionProvider"/>
+    </extensions>
+
     <applicationListeners>
         <listener class="com.github.skrtks.norminette.listeners.MyProjectManagerListener"
                   topic="com.intellij.openapi.project.ProjectManagerListener"/>
     </applicationListeners>
-    <actions>
-        <action id="norminette.Norminette" class="norminette.Norminette" text="Run Norminette"
-                description="Runs Norminette on the current file and highlights errors">
-            <add-to-group group-id="ToolsMenu" anchor="last"/>
-            <keyboard-shortcut keymap="$default" first-keystroke="ctrl alt N"/>
-        </action>
-    </actions>
 </idea-plugin>

@@ -1,10 +1,5 @@
 package norminette
 
-import com.intellij.openapi.actionSystem.AnAction
-import com.intellij.openapi.actionSystem.AnActionEvent
+import com.jetbrains.cidr.lang.inspections.OCInspection
 
-class Norminette : AnAction() {
-    override fun actionPerformed(e: AnActionEvent) {
-        TODO("Not yet implemented")
-    }
-}
+abstract class Norminette : OCInspection.Cpp()
