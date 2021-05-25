@@ -1,6 +1,6 @@
 <idea-plugin>
     <id>com.github.skrtks.norminette</id>
-    <name>norminette</name>
+    <name>Norminette</name>
     <vendor>skrtks</vendor>
 
     <!-- Product and plugin compatibility requirements -->
@@ -16,7 +16,7 @@
     </extensions>
 
     <extensions defaultExtensionNs="cidr.lang">
-        <standaloneInspectionToolProvider implementation="norminette.NorminetteInspectionProvider"/>
+        <standaloneInspectionToolProvider implementation="norminette.inspections.NorminetteInspectionProvider"/>
     </extensions>
 
     <applicationListeners>

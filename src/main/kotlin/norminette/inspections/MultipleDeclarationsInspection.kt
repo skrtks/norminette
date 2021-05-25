@@ -1,4 +1,4 @@
-package norminette
+package norminette.inspections
 
 import com.intellij.codeInspection.LocalQuickFix
 import com.intellij.codeInspection.ProblemDescriptor
@@ -22,7 +22,7 @@ class MultipleDeclarationsInspection : Norminette() {
 
     override fun buildVisitor(holder: ProblemsHolder, isOnTheFly: Boolean): PsiElementVisitor {
         return object : OCVisitor() {
-            private val DESCRIPTION_TEMPLATE = "Multiple declarations are not allowed"
+            private val DESCRIPTION_TEMPLATE = "Multiple declarations on a single line"
             override fun visitDeclarationStatement(stmt: OCDeclarationStatement?) {
                 // Identified an expression with potential problems, add to list with fix object.
                 val size = stmt?.declaration?.declarators?.size
