@@ -8,7 +8,8 @@ class NorminetteInspectionProvider : NotNullProducer<List<Class<out Any>>> {
         MultipleDeclarationsInspection()::class.java,
         DeclarationAssignmentSingleLineInspection()::class.java,
         DeclarationWhiteSpaceInspection()::class.java,
-        TrailingWhiteSpaceInspection()::class.java
+        TrailingWhiteSpaceInspection()::class.java,
+        FunctionLineLimit()::class.java
     )
 }
 
