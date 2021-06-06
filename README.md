@@ -4,9 +4,14 @@
 [![Version](https://img.shields.io/jetbrains/plugin/v/PLUGIN_ID.svg)](https://plugins.jetbrains.com/plugin/PLUGIN_ID)
 [![Downloads](https://img.shields.io/jetbrains/plugin/d/PLUGIN_ID.svg)](https://plugins.jetbrains.com/plugin/PLUGIN_ID)
 
+<!-- Plugin description -->
+Norminette linter for CLion.
+
 ## Disclaimer ⚠️
 I recommend to still check your files using Norminette before handing in your project. The plugin is in early development
 and some checks might not be implemented yet.
+
+<!-- Plugin description end -->
 
 ## Installation
 
