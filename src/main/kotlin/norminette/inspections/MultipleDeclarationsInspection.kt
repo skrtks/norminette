@@ -10,8 +10,6 @@ import com.jetbrains.cidr.lang.psi.OCDeclarationStatement
 import com.jetbrains.cidr.lang.psi.visitors.OCVisitor
 
 class MultipleDeclarationsInspection : Norminette() {
-    private val myQuickFix = CriQuickFix()
-
     override fun runForWholeFile(): Boolean {
         return true
     }
@@ -33,33 +31,33 @@ class MultipleDeclarationsInspection : Norminette() {
         }
     }
 
-    /**
-     * This class provides a solution to inspection problem expressions by manipulating the PSI tree to use 'a.equals(b)'
-     * instead of '==' or '!='.
-     */
-    private class CriQuickFix : LocalQuickFix {
-        /**
-         * Returns a partially localized string for the quick fix intention.
-         * Used by the test code for this plugin.
-         *
-         * @return Quick fix short name.
-         */
-        override fun getName(): String {
-            return "Split over multiple lines"
-        }
-
-        /**
-         * This method manipulates the PSI tree to replace 'a==b' with 'a.equals(b)' or 'a!=b' with '!a.equals(b)'.
-         *
-         * @param project    The project that contains the file being edited.
-         * @param descriptor A problem found by this inspection.
-         */
-        override fun applyFix(project: Project, descriptor: ProblemDescriptor) {
-            println("Applying fix!")
-        }
-
-        override fun getFamilyName(): String {
-            return name
-        }
-    }
+//    /**
+//     * This class provides a solution to inspection problem expressions by manipulating the PSI tree to use 'a.equals(b)'
+//     * instead of '==' or '!='.
+//     */
+//    private class CriQuickFix : LocalQuickFix {
+//        /**
+//         * Returns a partially localized string for the quick fix intention.
+//         * Used by the test code for this plugin.
+//         *
+//         * @return Quick fix short name.
+//         */
+//        override fun getName(): String {
+//            return "Split over multiple lines"
+//        }
+//
+//        /**
+//         * This method manipulates the PSI tree to replace 'a==b' with 'a.equals(b)' or 'a!=b' with '!a.equals(b)'.
+//         *
+//         * @param project    The project that contains the file being edited.
+//         * @param descriptor A problem found by this inspection.
+//         */
+//        override fun applyFix(project: Project, descriptor: ProblemDescriptor) {
+//            println("Applying fix!")
+//        }
+//
+//        override fun getFamilyName(): String {
+//            return name
+//        }
+//    }
 }

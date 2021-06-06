@@ -4,7 +4,6 @@ import com.intellij.codeInspection.ProblemHighlightType
 import com.intellij.codeInspection.ProblemsHolder
 import com.intellij.psi.PsiElementVisitor
 import com.intellij.psi.PsiWhiteSpace
-import com.intellij.psi.util.descendantsOfType
 import com.jetbrains.cidr.lang.psi.*
 import com.jetbrains.cidr.lang.psi.visitors.OCVisitor
 
@@ -31,7 +30,11 @@ class DeclarationWhiteSpaceInspection : Norminette() {
             override fun visitOCFile(file: OCFile?) {
                 val declarations = file?.children?.filterIsInstance<OCDeclaration>()
                 if (file?.firstChild is PsiWhiteSpace && file.firstChild.text.first() == '\n') {
-                    holder.registerProblem(file.firstChild, EMPTY_LINE_ON_TOP_OF_FILE, ProblemHighlightType.WEAK_WARNING)
+                    holder.registerProblem(
+                        file.firstChild,
+                        EMPTY_LINE_ON_TOP_OF_FILE,
+                        ProblemHighlightType.WEAK_WARNING
+                    )
                 }
                 declarations?.forEach { decl ->
                     if (decl.prevSibling is PsiWhiteSpace) {
@@ -53,10 +56,9 @@ class DeclarationWhiteSpaceInspection : Norminette() {
                             }
                         }
                         if (newLineEncountered < 1) {
-                           holder.registerProblem(decl, NEWLINE_AFTER_BRACE, ProblemHighlightType.WEAK_WARNING)
+                            holder.registerProblem(decl, NEWLINE_AFTER_BRACE, ProblemHighlightType.WEAK_WARNING)
                         }
-                    }
-                    else {
+                    } else {
                         holder.registerProblem(decl, NEWLINE_AFTER_BRACE, ProblemHighlightType.WEAK_WARNING)
                     }
                 }
@@ -101,7 +103,8 @@ class DeclarationWhiteSpaceInspection : Norminette() {
                         )
                     }
                 }
-                val whiteSpaceBetweenTypeAndName = stmt?.children?.filterIsInstance<OCTypeElement>()?.first()?.nextSibling
+                val whiteSpaceBetweenTypeAndName =
+                    stmt?.children?.filterIsInstance<OCTypeElement>()?.first()?.nextSibling
                 if (whiteSpaceBetweenTypeAndName is PsiWhiteSpace) {
                     whiteSpaceBetweenTypeAndName.text?.forEach {
                         if (it != '\t') {
