@@ -1,14 +1,14 @@
 <idea-plugin>
-    <id>com.github.skrtks.norminette</id>
+    <id>com.samkortekaas.norminette</id>
     <name>Norminette</name>
     <vendor>skrtks</vendor>
 
     <!-- Product and plugin compatibility requirements -->
     <!-- https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html -->
-    <!-- Required for core CLion functionality -->
-    <!-- Required for core CLion functionality -->
+    <depends>com.intellij.modules.platform</depends>
     <depends>com.intellij.modules.clion</depends>
     <depends>com.intellij.modules.lang</depends>
+    <depends>com.intellij.modules.cidr.lang</depends>
 
     <extensions defaultExtensionNs="com.intellij">
         <applicationService serviceImplementation="com.github.skrtks.norminette.services.MyApplicationService"/>
