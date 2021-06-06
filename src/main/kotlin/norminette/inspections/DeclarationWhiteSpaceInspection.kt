@@ -20,12 +20,19 @@ class DeclarationWhiteSpaceInspection : Norminette() {
     override fun buildVisitor(holder: ProblemsHolder, isOnTheFly: Boolean): PsiElementVisitor {
         return object : OCVisitor() {
             private val ONE_EMPTY_LINE = "Declarations should be separated by one empty line"
+            private val NEWLINE_AFTER_BRACE = "Expected newline after brace"
             private val DECL_TOP_FUNCT = "Declarations should be on the top of the body"
             private val EMPTY_LINE = "Empty line between declarations"
             private val EMPTY_LINE_AFTER = "There should be an empty line after the declarations block"
+            private val SPACE_SHOULD_BE_TAB = "Only tabs allowed between type and name"
+            private val WS_BEFORE_DECL = "Whitespace before declaration is not allowed"
+            private val EMPTY_LINE_ON_TOP_OF_FILE = "Empty line on top of file"
 
             override fun visitOCFile(file: OCFile?) {
                 val declarations = file?.children?.filterIsInstance<OCDeclaration>()
+                if (file?.firstChild is PsiWhiteSpace && file.firstChild.text.first() == '\n') {
+                    holder.registerProblem(file.firstChild, EMPTY_LINE_ON_TOP_OF_FILE, ProblemHighlightType.WEAK_WARNING)
+                }
                 declarations?.forEach { decl ->
                     if (decl.prevSibling is PsiWhiteSpace) {
                         var newLineEncountered = 0
@@ -37,6 +44,20 @@ class DeclarationWhiteSpaceInspection : Norminette() {
                         if (newLineEncountered != 2) {
                             holder.registerProblem(decl, ONE_EMPTY_LINE, ProblemHighlightType.WEAK_WARNING)
                         }
+                    }
+                    if (decl.nextSibling is PsiWhiteSpace) {
+                        var newLineEncountered = 0
+                        decl.nextSibling.text.forEach { chr ->
+                            if (chr == '\n') {
+                                newLineEncountered += 1
+                            }
+                        }
+                        if (newLineEncountered < 1) {
+                           holder.registerProblem(decl, NEWLINE_AFTER_BRACE, ProblemHighlightType.WEAK_WARNING)
+                        }
+                    }
+                    else {
+                        holder.registerProblem(decl, NEWLINE_AFTER_BRACE, ProblemHighlightType.WEAK_WARNING)
                     }
                 }
             }
@@ -75,18 +96,18 @@ class DeclarationWhiteSpaceInspection : Norminette() {
                     if (stmt != null) {
                         holder.registerProblem(
                             stmt,
-                            "Whitespace before declaration is not allowed",
+                            WS_BEFORE_DECL,
                             ProblemHighlightType.WEAK_WARNING
                         )
                     }
                 }
-                val whiteSpaceBetweenTypeAndName = stmt?.firstChild?.nextSibling
+                val whiteSpaceBetweenTypeAndName = stmt?.children?.filterIsInstance<OCTypeElement>()?.first()?.nextSibling
                 if (whiteSpaceBetweenTypeAndName is PsiWhiteSpace) {
                     whiteSpaceBetweenTypeAndName.text?.forEach {
                         if (it != '\t') {
                             holder.registerProblem(
                                 stmt,
-                                "Only tabs allowed between type and name",
+                                SPACE_SHOULD_BE_TAB,
                                 ProblemHighlightType.WEAK_WARNING
                             )
                         }
@@ -95,6 +116,7 @@ class DeclarationWhiteSpaceInspection : Norminette() {
             }
 
             override fun visitDeclaration(stmt: OCDeclaration?) {
+                if (stmt?.parent is OCParameterList) return
                 val whiteSpaceBetweenTypeAndName =
                     stmt?.children?.filterIsInstance<OCTypeElement>()?.first()?.nextSibling
                 if (whiteSpaceBetweenTypeAndName is PsiWhiteSpace) {
@@ -102,7 +124,7 @@ class DeclarationWhiteSpaceInspection : Norminette() {
                         if (it != '\t') {
                             holder.registerProblem(
                                 stmt,
-                                "Only tabs allowed between type and name",
+                                SPACE_SHOULD_BE_TAB,
                                 ProblemHighlightType.WEAK_WARNING
                             )
                         }

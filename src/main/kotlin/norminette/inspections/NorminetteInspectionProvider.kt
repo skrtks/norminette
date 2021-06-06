@@ -7,7 +7,8 @@ class NorminetteInspectionProvider : NotNullProducer<List<Class<out Any>>> {
     override fun produce(): List<Class<out OCInspection>> = listOf(
         MultipleDeclarationsInspection()::class.java,
         DeclarationAssignmentSingleLineInspection()::class.java,
-        DeclarationWhiteSpaceInspection()::class.java
+        DeclarationWhiteSpaceInspection()::class.java,
+        TrailingWhiteSpaceInspection()::class.java
     )
 }
 
