@@ -17,10 +17,10 @@ and some checks might not be implemented yet.
 
 - Using IDE built-in plugin system:
   
-  <kbd>Settings/Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>Marketplace</kbd> > <kbd>Search for "norminette"</kbd> >
+  <kbd>com.github.skrtks.norminette.settings.Settings/Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>Marketplace</kbd> > <kbd>Search for "norminette"</kbd> >
   <kbd>Install Plugin</kbd>
   
 - Manually:
 
   Download the [latest release](https://github.com/skrtks/norminette/releases/latest) and install it manually using
-  <kbd>Settings/Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>⚙️</kbd> > <kbd>Install plugin from disk...</kbd>
+  <kbd>com.github.skrtks.norminette.settings.Settings/Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>⚙️</kbd> > <kbd>Install plugin from disk...</kbd>
