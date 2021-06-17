@@ -1,79 +1,40 @@
 package com.github.skrtks.norminette.linter
 
-import com.github.skrtks.norminette.inspections.Norminette
-import com.intellij.codeInspection.ProblemHighlightType
-import com.intellij.codeInspection.ProblemsHolder
-import com.intellij.openapi.application.ApplicationManager
-import com.intellij.openapi.application.WriteAction
-import com.intellij.openapi.fileEditor.FileDocumentManager
+import com.intellij.lang.annotation.AnnotationHolder
+import com.intellij.lang.annotation.ExternalAnnotator
+import com.intellij.openapi.editor.Editor
+import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiDocumentManager
-import com.intellij.psi.PsiElementVisitor
 import com.intellij.psi.PsiFile
-import com.jetbrains.cidr.lang.psi.OCFile
-import com.jetbrains.cidr.lang.psi.visitors.OCVisitor
-import settings.Option
-import settings.Settings
-import java.io.File
+import java.util.function.Consumer
 
-class NorminetteLinterInspection : Norminette() {
-    override fun runForWholeFile(): Boolean {
-        return true
+class NorminetteLinterInspection : ExternalAnnotator<Editor, List<NorminetteWarning>>() {
+    override fun collectInformation(file: PsiFile, editor: Editor, hasErrors: Boolean): Editor {
+        return editor
     }
 
-    override fun worksWithClangd(): Boolean {
-        return true
+    override fun doAnnotate(editor: Editor?): List<NorminetteWarning> {
+        return lint(editor).toList()
     }
-//    override fun checkFile(file: PsiFile, manager: InspectionManager, isOnTheFly: Boolean): Array<ProblemDescriptor> {
-//        val document = FileDocumentManager.getInstance().getDocument(file.virtualFile)
-//        return lint(file, manager, document!!)
-//    }
 
-    override fun buildVisitor(holder: ProblemsHolder, isOnTheFly: Boolean): PsiElementVisitor {
-        return object : OCVisitor() {
-            override fun visitOCFile(file: OCFile?) {
-//                val document = PsiDocumentManager.getInstance(file?.project!!).getDocument(file!!)
-                FileDocumentManager.getInstance().saveAllDocuments()
-                val norminettePath = Settings.get(Option.OPTION_KEY_CPPLINT)
-                var pythonPath = Settings.get(Option.OPTION_KEY_PYTHON)
-                var norminetteOptions = Settings.get(Option.OPTION_KEY_CPPLINT_OPTIONS)
+    override fun apply(file: PsiFile, warnings: List<NorminetteWarning>, holder: AnnotationHolder) {
+        val document = PsiDocumentManager.getInstance(file.project).getDocument(file) ?: return
+        warnings.forEach(Consumer forEach@{ warning: NorminetteWarning ->
+            val line: Int = warning.line - 1
+            val startOffset = document.getLineStartOffset(line)
+            val endOffset = document.getLineEndOffset(line)
 
-
-                // setup process
-                // run norm on file
-                // parse output line by line
-                // create problem descriptor
-                // return descr
-                // repeat until last line
-
-                val localFile = file?.virtualFile?.path
-
-                val res = "norminette $localFile".runCommand(File(norminettePath))
-
-                parseResult(res, file!!, holder)
+            // See https://github.com/Hannah-Sten/TeXiFy-IDEA/pull/844
+            if (!isProperRange(startOffset, endOffset)) {
+                return@forEach
             }
-        }
+            val range = TextRange(startOffset, endOffset)
+            holder.createWarningAnnotation(range, warning.reason)
+        })
     }
 
-    fun parseResult(res: String?, file: PsiFile, holder: ProblemsHolder) {
-        val errors = res?.split("\n")
-        errors?.mapNotNull { if (it.startsWith("Error: ")) parseError(it, file, holder) else null }
-            ?.toTypedArray()
-            ?: emptyArray()
+    private fun isProperRange(startOffset: Int, endOffset: Int): Boolean {
+        return startOffset in 0..endOffset
     }
-
-    fun parseError(error: String, file: PsiFile, holder: ProblemsHolder) {
-        val blocks = error.split("\\s".toRegex()).filter { it != "" }
-        val shortCode = blocks[1]
-        val line = blocks[blocks.indexOf("(line:") + 1].filter { it.isDigit() }.toInt()
-        val document = PsiDocumentManager.getInstance(file.project).getDocument(file)
-        val lineStartOffset = document?.getLineStartOffset(line)
-        val lineEndOffset = document?.getLineEndOffset(line)
-
-        holder.registerProblem(
-            file,
-            shortCode,
-            ProblemHighlightType.WEAK_WARNING
-        )
-    }
-
 }
+

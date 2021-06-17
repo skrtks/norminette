@@ -11,6 +11,7 @@
     <depends>com.intellij.modules.cidr.lang</depends>
 
     <extensions defaultExtensionNs="com.intellij">
+        <externalAnnotator language="ObjectiveC" implementationClass="com.github.skrtks.norminette.linter.NorminetteLinterInspection" />
         <applicationService serviceImplementation="com.github.skrtks.norminette.services.MyApplicationService"/>
         <projectService serviceImplementation="com.github.skrtks.norminette.services.MyProjectService"/>
         <applicationConfigurable instance="settings.Option" displayName="Norminette Option"/>

@@ -1,6 +1,5 @@
 package com.github.skrtks.norminette.inspections
 
-import com.github.skrtks.norminette.linter.NorminetteLinterInspection
 import com.intellij.util.NotNullProducer
 import com.jetbrains.cidr.lang.inspections.OCInspection
 
@@ -11,7 +10,7 @@ class NorminetteInspectionProvider : NotNullProducer<List<Class<out Any>>> {
 //        DeclarationWhiteSpaceInspection()::class.java,
 //        TrailingWhiteSpaceInspection()::class.java,
 //        FunctionLineLimit()::class.java,
-        NorminetteLinterInspection()::class.java
+//        NorminetteLinterInspection()::class.java
     )
 }
 
