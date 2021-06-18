@@ -15,15 +15,14 @@ import java.util.concurrent.TimeUnit
 
 
 fun lint(editor: Editor?): Array<NorminetteWarning> {
-    val norminettePath = Settings.get(Option.OPTION_KEY_CPPLINT)
-    var pythonPath = Settings.get(Option.OPTION_KEY_PYTHON)
-    var norminetteOptions = Settings.get(Option.OPTION_KEY_CPPLINT_OPTIONS)
+    val norminettePath = Settings.get(Option.OPTION_KEY_NORMINETTE)
+    if (norminettePath == null || norminettePath.isEmpty()) return emptyArray()
 
     val tmpFile = File.createTempFile("norminette", ".c")
     val document = editor?.document ?: return emptyArray()
     createSyncedFile(document, tmpFile.toPath())
-    val res = "norminette ${tmpFile.path}".runCommand(File(norminettePath))
-    return parseResult(res, document)
+    val res = "norminette ${tmpFile.path}".runCommand()
+    return parseResult(res)
 }
 
 private fun createSyncedFile(doc: Document, tmp: Path): VirtualFile? {
@@ -31,22 +30,21 @@ private fun createSyncedFile(doc: Document, tmp: Path): VirtualFile? {
     return LocalFileSystem.getInstance().findFileByPath(tmp.toString())
 }
 
-fun parseResult(res: String?, document: Document): Array<NorminetteWarning> {
+fun parseResult(res: String?): Array<NorminetteWarning> {
     val errors = res?.split("\n")
-    return errors?.mapNotNull { if (it.startsWith("Error: ")) parseError(it, document) else null }?.toTypedArray()
+    return errors?.mapNotNull { if (it.startsWith("Error: ")) parseError(it) else null }?.toTypedArray()
         ?: emptyArray()
 }
 
-fun parseError(error: String, document: Document): NorminetteWarning? {
+fun parseError(error: String): NorminetteWarning? {
     val blocks = error.split("\\s".toRegex()).filter { it != "" }
     val shortCode = blocks[1]
     val line = blocks[blocks.indexOf("(line:") + 1].filter { it.isDigit() }.toIntOrNull() ?: return null
-    val column = blocks[blocks.indexOf("col:") + 1].filter { it.isDigit() }.toIntOrNull() ?: return null
-    return NorminetteWarning(line, column, shortCode)
+    return NorminetteWarning(line, shortCode)
 }
 
 
-fun String.runCommand(norminette: File): String? {
+fun String.runCommand(): String? {
     return try {
         val parts = this.split("\\s".toRegex())
         val proc = ProcessBuilder(*parts.toTypedArray())

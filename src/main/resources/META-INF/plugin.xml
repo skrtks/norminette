@@ -14,11 +14,7 @@
         <externalAnnotator language="ObjectiveC" implementationClass="com.github.skrtks.norminette.linter.NorminetteLinterInspection" />
         <applicationService serviceImplementation="com.github.skrtks.norminette.services.MyApplicationService"/>
         <projectService serviceImplementation="com.github.skrtks.norminette.services.MyProjectService"/>
-        <applicationConfigurable instance="settings.Option" displayName="Norminette Option"/>
-    </extensions>
-
-    <extensions defaultExtensionNs="cidr.lang">
-        <standaloneInspectionToolProvider implementation="com.github.skrtks.norminette.inspections.NorminetteInspectionProvider"/>
+        <applicationConfigurable instance="settings.Option" displayName="Norminette Options"/>
     </extensions>
 
     <applicationListeners>

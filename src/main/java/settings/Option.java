@@ -15,19 +15,17 @@ import ui.JFilePicker;
  * Created by HD on 2015/1/1.
  */
 public class Option implements Configurable {
-    public static final String OPTION_KEY_PYTHON = "python";
-    public static final String OPTION_KEY_CPPLINT = "cpplint";
-    public static final String OPTION_KEY_CPPLINT_OPTIONS = "cpplintOptions";
+    public static final String OPTION_KEY_NORMINETTE = "norminette";
+//    public static final String OPTION_KEY_NORMINETTE_OPTIONS = "norminetteOptions";
     private boolean modified = false;
-    private JFilePicker jFilePickerPython;
-    private JFilePicker jFilePickerCpplint;
-    private JTextField jTextCpplintOptions;
+    private JFilePicker jFilePickerNorminette;
+//    private JTextField jTextNorminetteOptions;
     private final OptionModifiedListener listener = new OptionModifiedListener(this);
 
     @Nls
     @Override
     public String getDisplayName() {
-        return "cpplint";
+        return "norminette";
     }
 
     @Nullable
@@ -44,21 +42,16 @@ public class Option implements Configurable {
         VerticalLayout verticalLayout = new VerticalLayout(1, 2);
         jPanel.setLayout(verticalLayout);
 
-        jFilePickerPython = new JFilePicker("Python path:", "...");
-        jFilePickerCpplint = new JFilePicker("cpplint.py path:", "...");
-        JLabel jLabelCpplintOptions = new JLabel("cpplint.py options:");
-        jTextCpplintOptions = new JTextField("", 39);
+        jFilePickerNorminette = new JFilePicker("Norminette path:", "...");
+//        JLabel jLabelCpplintOptions = new JLabel("cpplint.py options:");
+//        jTextNorminetteOptions = new JTextField("", 39);
 
         reset();
 
-        jFilePickerPython.getTextField().getDocument().addDocumentListener(listener);
-        jFilePickerCpplint.getTextField().getDocument().addDocumentListener(listener);
-        jTextCpplintOptions.getDocument().addDocumentListener(listener);
+        jFilePickerNorminette.getTextField().getDocument().addDocumentListener(listener);
+//        jTextNorminetteOptions.getDocument().addDocumentListener(listener);
 
-        jPanel.add(jFilePickerPython);
-        jPanel.add(jFilePickerCpplint);
-        jPanel.add(jLabelCpplintOptions);
-        jPanel.add(jTextCpplintOptions);
+        jPanel.add(jFilePickerNorminette);
 
         return jPanel;
     }
@@ -74,30 +67,25 @@ public class Option implements Configurable {
 
     @Override
     public void apply() throws ConfigurationException {
-        Settings.set(OPTION_KEY_PYTHON, jFilePickerPython.getTextField().getText());
-        Settings.set(OPTION_KEY_CPPLINT, jFilePickerCpplint.getTextField().getText());
-        Settings.set(OPTION_KEY_CPPLINT_OPTIONS, jTextCpplintOptions.getText());
+        Settings.set(OPTION_KEY_NORMINETTE, jFilePickerNorminette.getTextField().getText());
+//        Settings.set(OPTION_KEY_CPPLINT_OPTIONS, jTextNorminetteOptions.getText());
         modified = false;
     }
 
     @Override
     public void reset() {
-        String python = Settings.get(OPTION_KEY_PYTHON);
-        jFilePickerPython.getTextField().setText(python);
+        String norminette = Settings.get(OPTION_KEY_NORMINETTE);
+        jFilePickerNorminette.getTextField().setText(norminette);
 
-        String cpplint = Settings.get(OPTION_KEY_CPPLINT);
-        jFilePickerCpplint.getTextField().setText(cpplint);
-
-        String cpplintOptions = Settings.get(OPTION_KEY_CPPLINT_OPTIONS);
-        jTextCpplintOptions.setText(cpplintOptions);
+//        String norminetteOptions = Settings.get(OPTION_KEY_NORMINETTE_OPTIONS);
+//        jTextNorminetteOptions.setText(norminetteOptions);
         modified = false;
     }
 
     @Override
     public void disposeUIResources() {
-        jFilePickerPython.getTextField().getDocument().removeDocumentListener(listener);
-        jFilePickerCpplint.getTextField().getDocument().removeDocumentListener(listener);
-        jTextCpplintOptions.getDocument().removeDocumentListener(listener);
+        jFilePickerNorminette.getTextField().getDocument().removeDocumentListener(listener);
+//        jTextNorminetteOptions.getDocument().removeDocumentListener(listener);
     }
 
     private static class OptionModifiedListener implements DocumentListener {
