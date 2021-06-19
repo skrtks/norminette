@@ -1,7 +1,11 @@
 <!-- Keep a Changelog guide -> https://keepachangelog.com -->
 
-# norminette Changelog
+# Norminette Changelog
 
-## [Unreleased]
+## 0.0.2
 ### Added
-- Added support for basic whitespace checks
+- Switched to using 42 Norminette as external annotator
+- Now automatically detecting Norminette executable if in PATH
+
+### Fixed
+- Now properly deleting temporary file for Norminette runner after use
