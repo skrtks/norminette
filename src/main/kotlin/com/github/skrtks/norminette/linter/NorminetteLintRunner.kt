@@ -1,11 +1,10 @@
 package com.github.skrtks.norminette.linter
 
+import com.github.skrtks.norminette.settings.NorminetteSettingsPanel
 import com.intellij.openapi.editor.Document
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.vfs.LocalFileSystem
 import com.intellij.openapi.vfs.VirtualFile
-import settings.Option
-import settings.Settings
 import java.io.File
 import java.io.IOException
 import java.nio.charset.StandardCharsets
@@ -15,8 +14,11 @@ import java.util.concurrent.TimeUnit
 
 
 fun lint(editor: Editor?): Array<NorminetteWarning> {
-    val norminettePath = Settings.get(Option.OPTION_KEY_NORMINETTE)
-    if (norminettePath == null || norminettePath.isEmpty()) return emptyArray()
+    val norminettePath = NorminetteSettingsPanel.OPTION_KEY_NORMINETTE
+    if (norminettePath.isEmpty()) return emptyArray()
+
+//    val norminetteExecutable = File(norminettePath)
+//    if (!norminetteExecutable.exists() || !norminetteExecutable.canExecute()) return emptyArray()
 
     val tmpFile = File.createTempFile("norminette", ".c")
     val document = editor?.document ?: return emptyArray()
