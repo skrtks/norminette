@@ -2,6 +2,7 @@ package com.github.skrtks.norminette.linter
 
 import com.intellij.lang.annotation.AnnotationHolder
 import com.intellij.lang.annotation.ExternalAnnotator
+import com.intellij.lang.annotation.HighlightSeverity
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiDocumentManager
@@ -24,12 +25,11 @@ class NorminetteLinterInspection : ExternalAnnotator<Editor, List<NorminetteWarn
             val startOffset = document.getLineStartOffset(line)
             val endOffset = document.getLineEndOffset(line)
 
-            // See https://github.com/Hannah-Sten/TeXiFy-IDEA/pull/844
             if (!isProperRange(startOffset, endOffset)) {
                 return@forEach
             }
             val range = TextRange(startOffset, endOffset)
-            holder.createWarningAnnotation(range, warning.reason)
+            holder.newAnnotation(HighlightSeverity.WEAK_WARNING, warning.reason).range(range).createAnnotation()
         })
     }
 

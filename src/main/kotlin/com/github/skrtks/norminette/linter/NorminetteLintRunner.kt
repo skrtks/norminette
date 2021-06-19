@@ -3,8 +3,7 @@ package com.github.skrtks.norminette.linter
 import com.github.skrtks.norminette.settings.NorminetteSettingsPanel
 import com.intellij.openapi.editor.Document
 import com.intellij.openapi.editor.Editor
-import com.intellij.openapi.vfs.LocalFileSystem
-import com.intellij.openapi.vfs.VirtualFile
+import org.jetbrains.annotations.NonNls
 import java.io.File
 import java.io.IOException
 import java.nio.charset.StandardCharsets
@@ -14,27 +13,30 @@ import java.util.concurrent.TimeUnit
 
 
 fun lint(editor: Editor?): Array<NorminetteWarning> {
-    if (NorminetteSettingsPanel.OPTION_KEY_NORMINETTE.isEmpty()) NorminetteSettingsPanel.detectAndSetPath()
-    val norminettePath = NorminetteSettingsPanel.OPTION_KEY_NORMINETTE
-    if (norminettePath.isEmpty()) return emptyArray()
-
-    val norminetteExecutable = File(norminettePath)
-    if (!norminetteExecutable.exists() || !norminetteExecutable.canExecute()) return emptyArray()
+    if (NorminetteSettingsPanel.NORMINETTE_PATH_VAL.isEmpty()) NorminetteSettingsPanel.detectAndSetPath()
+    val norminettePath = NorminetteSettingsPanel.NORMINETTE_PATH_VAL
+    if (!isValidNorminettePath(norminettePath)) return emptyArray()
 
     val tmpFile = File.createTempFile("norminette", ".c")
     val document = editor?.document ?: return emptyArray()
     createSyncedFile(document, tmpFile.toPath())
-    val res = "$norminettePath ${tmpFile.path}".runCommand()
+    val externalAnnotatorResult = "$norminettePath ${tmpFile.path}".runCommand()
     tmpFile.delete()
-    return parseResult(res)
+    return parse(externalAnnotatorResult)
 }
 
-private fun createSyncedFile(doc: Document, tmp: Path): VirtualFile? {
+private fun isValidNorminettePath(norminettePath: @NonNls String): Boolean {
+    if (norminettePath.isEmpty()) return false
+    val norminetteExecutable = File(norminettePath)
+    if (!norminetteExecutable.exists() || !norminetteExecutable.canExecute()) return false
+    return true
+}
+
+private fun createSyncedFile(doc: Document, tmp: Path) {
     Files.newBufferedWriter(tmp, StandardCharsets.UTF_8).use { out -> out.write(doc.text) }
-    return LocalFileSystem.getInstance().findFileByPath(tmp.toString())
 }
 
-fun parseResult(res: String?): Array<NorminetteWarning> {
+fun parse(res: String?): Array<NorminetteWarning> {
     val errors = res?.split("\n")
     return errors?.mapNotNull { if (it.startsWith("Error: ")) parseError(it) else null }?.toTypedArray()
         ?: emptyArray()

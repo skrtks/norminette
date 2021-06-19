@@ -1,5 +1,6 @@
 package com.github.skrtks.norminette.settings
 
+import com.intellij.ide.util.PropertiesComponent
 import com.intellij.openapi.fileChooser.FileChooserDescriptorFactory
 import com.intellij.openapi.options.Configurable
 import com.intellij.openapi.ui.TextFieldWithBrowseButton
@@ -16,12 +17,14 @@ import javax.swing.event.DocumentEvent
 import javax.swing.event.DocumentListener
 
 object NorminetteSettingsPanel : Configurable {
-    var OPTION_KEY_NORMINETTE = ""
     private var modified = false
     private var textField = TextFieldWithBrowseButton(JTextField(30))
     private var button = Button("Detect installation")
     private val listener = NorminetteModifiedListener(this)
     private val buttonListener = NorminetteButtonListener()
+    private val persistentProperties = PropertiesComponent.getInstance()
+    private const val pathKey = "skrtks.norminette.settings.path"
+    var NORMINETTE_PATH_VAL = persistentProperties.getValue(pathKey) ?: ""
 
     override fun createComponent(): JComponent {
         val panel = JPanel()
@@ -35,7 +38,7 @@ object NorminetteSettingsPanel : Configurable {
             null,
             desc
         )
-        textField.text = OPTION_KEY_NORMINETTE
+        textField.text = NORMINETTE_PATH_VAL
 
         panel.add(JLabel("Norminette: "))
         panel.add(textField)
@@ -51,20 +54,22 @@ object NorminetteSettingsPanel : Configurable {
     }
 
     override fun apply() {
-        OPTION_KEY_NORMINETTE = textField.text
+        NORMINETTE_PATH_VAL = textField.text
+        persistentProperties.setValue(pathKey, NORMINETTE_PATH_VAL)
         modified = false
     }
 
     override fun reset() {
-        if (OPTION_KEY_NORMINETTE.isEmpty()) {
+        if (NORMINETTE_PATH_VAL.isEmpty()) {
             detectAndSetPath()
         }
         modified = false
     }
 
     fun detectAndSetPath() {
-        OPTION_KEY_NORMINETTE = findExecutableOnPath() ?: ""
-        textField.text = OPTION_KEY_NORMINETTE.ifEmpty { "No installation found" }
+        NORMINETTE_PATH_VAL = findExecutableOnPath() ?: ""
+        persistentProperties.setValue(pathKey, NORMINETTE_PATH_VAL)
+        textField.text = NORMINETTE_PATH_VAL.ifEmpty { "No installation found" }
     }
 
     private fun findExecutableOnPath(): String? {
