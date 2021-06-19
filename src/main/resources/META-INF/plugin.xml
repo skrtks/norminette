@@ -14,7 +14,7 @@
         <externalAnnotator language="ObjectiveC" implementationClass="com.github.skrtks.norminette.linter.NorminetteLinterInspection" />
         <applicationService serviceImplementation="com.github.skrtks.norminette.services.MyApplicationService"/>
         <projectService serviceImplementation="com.github.skrtks.norminette.services.MyProjectService"/>
-        <applicationConfigurable instance="com.github.skrtks.norminette.settings.NorminetteSettingsPanel" displayName="Norminette Settings"/>
+        <applicationConfigurable instance="com.github.skrtks.norminette.settings.NorminetteSettingsPanel" displayName="Norminette"/>
     </extensions>
 
     <applicationListeners>

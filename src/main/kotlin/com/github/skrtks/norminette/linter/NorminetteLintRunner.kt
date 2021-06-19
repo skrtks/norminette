@@ -14,11 +14,12 @@ import java.util.concurrent.TimeUnit
 
 
 fun lint(editor: Editor?): Array<NorminetteWarning> {
+    if (NorminetteSettingsPanel.OPTION_KEY_NORMINETTE.isEmpty()) NorminetteSettingsPanel.detectAndSetPath()
     val norminettePath = NorminetteSettingsPanel.OPTION_KEY_NORMINETTE
     if (norminettePath.isEmpty()) return emptyArray()
 
-//    val norminetteExecutable = File(norminettePath)
-//    if (!norminetteExecutable.exists() || !norminetteExecutable.canExecute()) return emptyArray()
+    val norminetteExecutable = File(norminettePath)
+    if (!norminetteExecutable.exists() || !norminetteExecutable.canExecute()) return emptyArray()
 
     val tmpFile = File.createTempFile("norminette", ".c")
     val document = editor?.document ?: return emptyArray()

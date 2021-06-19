@@ -3,7 +3,11 @@ package com.github.skrtks.norminette.settings
 import com.intellij.openapi.fileChooser.FileChooserDescriptorFactory
 import com.intellij.openapi.options.Configurable
 import com.intellij.openapi.ui.TextFieldWithBrowseButton
+import java.awt.Button
 import java.awt.FlowLayout
+import java.awt.event.ActionEvent
+import java.awt.event.ActionListener
+import java.io.File
 import javax.swing.JComponent
 import javax.swing.JLabel
 import javax.swing.JPanel
@@ -12,24 +16,34 @@ import javax.swing.event.DocumentEvent
 import javax.swing.event.DocumentListener
 
 object NorminetteSettingsPanel : Configurable {
-    var OPTION_KEY_NORMINETTE = "norminette"
+    var OPTION_KEY_NORMINETTE = ""
     private var modified = false
+    private var textField = TextFieldWithBrowseButton(JTextField(30))
+    private var button = Button("Detect installation")
     private val listener = NorminetteModifiedListener(this)
-    private var textField: TextFieldWithBrowseButton? = null
+    private val buttonListener = NorminetteButtonListener()
 
     override fun createComponent(): JComponent {
         val panel = JPanel()
         panel.layout = FlowLayout(FlowLayout.LEFT, 5, 5)
 
-        val descr = FileChooserDescriptorFactory.createSingleFileDescriptor()
-        textField = TextFieldWithBrowseButton(JTextField(30))
-        textField!!.textField.document.addDocumentListener(listener)
-        textField!!.addBrowseFolderListener("Norminette executable", "Please select the Norminette executable", null, descr)
+        val desc = FileChooserDescriptorFactory.createSingleFileDescriptor()
+        textField.textField.document.addDocumentListener(listener)
+        textField.addBrowseFolderListener(
+            "Norminette Executable",
+            "Please select the Norminette executable",
+            null,
+            desc
+        )
+        textField.text = OPTION_KEY_NORMINETTE
+
         panel.add(JLabel("Norminette: "))
         panel.add(textField)
 
-        return panel
+        button.addActionListener(buttonListener)
+        panel.add(button)
 
+        return panel
     }
 
     override fun isModified(): Boolean {
@@ -37,19 +51,38 @@ object NorminetteSettingsPanel : Configurable {
     }
 
     override fun apply() {
-        OPTION_KEY_NORMINETTE = textField!!.text
+        OPTION_KEY_NORMINETTE = textField.text
         modified = false
     }
 
     override fun reset() {
-        textField!!.textField.text = OPTION_KEY_NORMINETTE
+        if (OPTION_KEY_NORMINETTE.isEmpty()) {
+            detectAndSetPath()
+        }
         modified = false
     }
 
-    override fun disposeUIResources() {
-        textField!!.textField.document.removeDocumentListener(listener)
+    fun detectAndSetPath() {
+        OPTION_KEY_NORMINETTE = findExecutableOnPath() ?: ""
+        textField.text = OPTION_KEY_NORMINETTE.ifEmpty { "No installation found" }
     }
 
+    private fun findExecutableOnPath(): String? {
+        for (dirname in System.getenv("PATH").split(File.pathSeparator)) {
+            val file = File(dirname, "norminette")
+            if (file.isFile && file.canExecute()) {
+                return file.absolutePath
+            }
+        }
+        return null
+    }
+
+    override fun disposeUIResources() {
+        textField.textField.document.removeDocumentListener(listener)
+        button.removeActionListener(buttonListener)
+    }
+
+    @Suppress("DialogTitleCapitalization")
     override fun getDisplayName(): String {
         return "norminette"
     }
@@ -68,38 +101,9 @@ object NorminetteSettingsPanel : Configurable {
         }
     }
 
-//    myCMake = createActionItemsComboBox(myCMakeModel)
-//    cMakeLabel.labelFor = myCMake.comboBox
-//    add(myCMake, bag.next().coverLine().insetTop(nextTopInset))
-//
-//    val cmakeToolsCheckLabel = HyperlinkLabel()
-//    cmakeToolsCheckLabel.setFontSize(UIUtil.FontSize.SMALL)
-//
-//    val cmakeToolsChecker = addCMakeToolsChecker(cmakeToolsCheckLabel)
-//    addVersionChecker(
-//    myCMake,
-//    bag.nextLine().next().next(),
-//    object : VersionChecker<CPPToolchainsPanel.SelectedCMake>(true) {
-//        override val selectedItem: CPPToolchainsPanel.SelectedCMake?
-//            get() = selectedCMake
-//
-//        override fun readAndCheckVersion(
-//            selectedToolSet: CPPToolSet?,
-//            selectedItem: CPPToolchainsPanel.SelectedCMake?
-//        ): CheckedVersion {
-//            if (selectedItem == null) return CheckedVersion("CMake")
-//
-//            val toolchain = createTemplateToolchain()
-//            apply(toolchain)
-//            val version = CMakeExecutableTool.readCMakeVersion(toolchain)
-//            return CheckedVersion(
-//                "CMake",
-//                version, warning = version?.let { CMakeExecutableTool.checkVersion(it) },
-//                isBundled = selectedItem.isBundled,
-//                isFromToolSet = selectedToolSet.isToolSetCMake(selectedItem.path?.let(java.io::File))
-//            )
-//        }
-//    }
-//    )
-//    { cmakeToolsChecker.run() }
+    private class NorminetteButtonListener : ActionListener {
+        override fun actionPerformed(e: ActionEvent?) {
+            detectAndSetPath()
+        }
+    }
 }
