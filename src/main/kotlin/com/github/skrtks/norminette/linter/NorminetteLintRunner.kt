@@ -21,7 +21,8 @@ fun lint(editor: Editor?): Array<NorminetteWarning> {
     val tmpFile = File.createTempFile("norminette", ".c")
     val document = editor?.document ?: return emptyArray()
     createSyncedFile(document, tmpFile.toPath())
-    val res = "norminette ${tmpFile.path}".runCommand()
+    val res = "$norminettePath ${tmpFile.path}".runCommand()
+    tmpFile.delete()
     return parseResult(res)
 }
 
