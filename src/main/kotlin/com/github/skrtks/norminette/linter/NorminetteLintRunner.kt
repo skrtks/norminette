@@ -3,6 +3,7 @@ package com.github.skrtks.norminette.linter
 import com.github.skrtks.norminette.settings.NorminetteSettingsPanel
 import com.intellij.openapi.editor.Document
 import com.intellij.openapi.editor.Editor
+import com.intellij.openapi.fileEditor.FileDocumentManager
 import org.jetbrains.annotations.NonNls
 import java.io.File
 import java.io.IOException
@@ -17,8 +18,9 @@ fun lint(editor: Editor?): Array<NorminetteWarning> {
     val norminettePath = NorminetteSettingsPanel.NORMINETTE_PATH_VAL
     if (!isValidNorminettePath(norminettePath)) return emptyArray()
 
-    val tmpFile = File.createTempFile("norminette", ".c")
     val document = editor?.document ?: return emptyArray()
+    val fileExtension = FileDocumentManager.getInstance().getFile(document)?.extension ?: return emptyArray()
+    val tmpFile = File.createTempFile("norminette", ".$fileExtension")
     createSyncedFile(document, tmpFile.toPath())
     val externalAnnotatorResult = "$norminettePath ${tmpFile.path}".runCommand()
     tmpFile.delete()
