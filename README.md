@@ -8,8 +8,7 @@
 Norminette linter for CLion.
 
 ### Disclaimer ⚠️
-I recommend to still check your files using Norminette before handing in your project. The plugin is in early development
-and some checks might not be implemented yet.
+I recommend to still check your files using Norminette before handing in your project. The plugin is in early development, and some checks might not be implemented yet.
 
 ### Setup 🛠
 Check if Norminette is already installed on your system (run norminette -v). 
