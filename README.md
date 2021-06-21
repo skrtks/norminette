@@ -11,7 +11,7 @@ Norminette linter for CLion.
 I recommend to still check your files using Norminette before handing in your project. The plugin is in early development, and some checks might not be implemented yet.
 
 ### Setup 🛠
-Check if Norminette is already installed on your system (run norminette -v). 
+Check if Norminette is already installed on your system (run `norminette -v`). 
 If not, you can download it [here](https://github.com/42School/norminette). 
 
 When Norminette is properly installed on your system, Norminette for CLion should automatically detect the path to the executable.
