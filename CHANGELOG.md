@@ -5,6 +5,7 @@
 ## 0.0.2
 ### Added
 - Switched to using 42 Norminette as external annotator
+- Showing proper error messages instead of only error code
 - Now automatically detecting Norminette executable if in PATH
 
 ### Fixed

@@ -15,7 +15,7 @@ class NorminetteLinterInspection : ExternalAnnotator<Editor, List<NorminetteWarn
     }
 
     override fun doAnnotate(editor: Editor?): List<NorminetteWarning> {
-        return lint(editor).toList()
+        return NorminetteLintRunner.lint(editor).toList()
     }
 
     override fun apply(file: PsiFile, warnings: List<NorminetteWarning>, holder: AnnotationHolder) {
