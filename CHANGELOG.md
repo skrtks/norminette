@@ -2,6 +2,11 @@
 
 # Norminette Changelog
 
+## 0.0.3
+### Fixed
+- Fixed not auto-detecting Norminette from PATH
+- Added support for older versions of CLion
+
 ## 0.0.2
 ### Added
 - Switched to using 42 Norminette as external annotator
