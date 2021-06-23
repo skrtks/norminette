@@ -73,9 +73,10 @@ object NorminetteSettingsPanel : Configurable {
     }
 
     private fun findExecutableOnPath(): String? {
-        for (dirname in System.getenv("PATH").split(File.pathSeparator)) {
+        val path = System.getenv("PATH") + ":/usr/local/bin" // /usr/local/bin not in PATH for applications by default on macOS
+        for (dirname in path.split(File.pathSeparator)) {
             val file = File(dirname, "norminette")
-            if (file.isFile && file.canExecute()) {
+            if (file.exists() && file.canExecute()) {
                 return file.absolutePath
             }
         }
