@@ -3,6 +3,7 @@ package com.github.skrtks.norminette.linter
 import com.intellij.lang.annotation.AnnotationHolder
 import com.intellij.lang.annotation.ExternalAnnotator
 import com.intellij.lang.annotation.HighlightSeverity
+import com.intellij.openapi.application.ApplicationInfo
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiDocumentManager
@@ -29,7 +30,13 @@ class NorminetteLinterInspection : ExternalAnnotator<Editor, List<NorminetteWarn
                 return@forEach
             }
             val range = TextRange(startOffset, endOffset)
-            holder.newAnnotation(HighlightSeverity.WEAK_WARNING, warning.reason).range(range).createAnnotation()
+
+            if (ApplicationInfo.getInstance().build.components.first() >= 211) {
+                holder.newAnnotation(HighlightSeverity.WEAK_WARNING, warning.reason).range(range).createAnnotation()
+            }
+            else {
+                holder.createWeakWarningAnnotation(range, warning.reason)
+            }
         })
     }
 

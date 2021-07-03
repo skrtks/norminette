@@ -2,6 +2,10 @@
 
 # Norminette Changelog
 
+## 0.0.4
+### Fixed
+- Fixed issue with adding annotations in old versions of CLion 
+
 ## 0.0.3
 ### Fixed
 - Fixed not auto-detecting Norminette from PATH
