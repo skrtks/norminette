@@ -1,7 +1,7 @@
 <idea-plugin>
     <id>com.samkortekaas.norminette</id>
     <name>Norminette</name>
-    <vendor>skrtks</vendor>
+    <vendor>Sam Kortekaas</vendor>
 
     <!-- Product and plugin compatibility requirements -->
     <!-- https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html -->

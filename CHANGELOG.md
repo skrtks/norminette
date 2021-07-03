@@ -2,6 +2,10 @@
 
 # Norminette Changelog
 
+## 0.0.5
+### Updated
+- New icon 
+
 ## 0.0.4
 ### Fixed
 - Fixed issue with adding annotations in old versions of CLion 
