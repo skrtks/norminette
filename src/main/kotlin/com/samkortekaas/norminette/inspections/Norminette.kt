@@ -1,4 +1,4 @@
-package com.github.skrtks.norminette.inspections
+package com.samkortekaas.norminette.inspections
 
 import com.jetbrains.cidr.lang.inspections.OCInspection
 

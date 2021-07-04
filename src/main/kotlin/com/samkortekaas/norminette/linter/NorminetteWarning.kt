@@ -1,4 +1,4 @@
-package com.github.skrtks.norminette.linter
+package com.samkortekaas.norminette.linter
 
 class NorminetteWarning (
     val line: Int,

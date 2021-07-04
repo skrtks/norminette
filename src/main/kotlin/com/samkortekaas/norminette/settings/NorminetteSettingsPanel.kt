@@ -1,4 +1,4 @@
-package com.github.skrtks.norminette.settings
+package com.samkortekaas.norminette.settings
 
 import com.intellij.ide.util.PropertiesComponent
 import com.intellij.openapi.fileChooser.FileChooserDescriptorFactory
@@ -95,15 +95,15 @@ object NorminetteSettingsPanel : Configurable {
 
     private class NorminetteModifiedListener(private val settingsPanel: NorminetteSettingsPanel) : DocumentListener {
         override fun insertUpdate(documentEvent: DocumentEvent) {
-            settingsPanel.modified = true
+            modified = true
         }
 
         override fun removeUpdate(documentEvent: DocumentEvent) {
-            settingsPanel.modified = true
+            modified = true
         }
 
         override fun changedUpdate(documentEvent: DocumentEvent) {
-            settingsPanel.modified = true
+            modified = true
         }
     }
 

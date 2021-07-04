@@ -1,6 +1,6 @@
-package com.github.skrtks.norminette.listeners
+package com.samkortekaas.norminette.listeners
 
-import com.github.skrtks.norminette.services.MyProjectService
+import com.samkortekaas.norminette.services.MyProjectService
 import com.intellij.openapi.components.service
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.project.ProjectManagerListener

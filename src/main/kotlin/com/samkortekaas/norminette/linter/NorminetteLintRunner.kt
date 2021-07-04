@@ -1,6 +1,6 @@
-package com.github.skrtks.norminette.linter
+package com.samkortekaas.norminette.linter
 
-import com.github.skrtks.norminette.settings.NorminetteSettingsPanel
+import com.samkortekaas.norminette.settings.NorminetteSettingsPanel
 import com.intellij.openapi.editor.Document
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.fileEditor.FileDocumentManager

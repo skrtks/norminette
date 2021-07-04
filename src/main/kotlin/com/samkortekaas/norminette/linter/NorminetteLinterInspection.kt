@@ -1,4 +1,4 @@
-package com.github.skrtks.norminette.linter
+package com.samkortekaas.norminette.linter
 
 import com.intellij.lang.annotation.AnnotationHolder
 import com.intellij.lang.annotation.ExternalAnnotator

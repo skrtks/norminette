@@ -1,4 +1,4 @@
-package com.github.skrtks.norminette
+package com.samkortekaas.norminette
 
 import com.intellij.AbstractBundle
 import org.jetbrains.annotations.NonNls

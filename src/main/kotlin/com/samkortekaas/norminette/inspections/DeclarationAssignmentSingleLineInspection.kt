@@ -1,4 +1,4 @@
-package com.github.skrtks.norminette.inspections
+package com.samkortekaas.norminette.inspections
 
 import com.intellij.codeInspection.ProblemHighlightType
 import com.intellij.codeInspection.ProblemsHolder

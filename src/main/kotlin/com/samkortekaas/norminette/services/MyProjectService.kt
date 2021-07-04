@@ -1,6 +1,6 @@
-package com.github.skrtks.norminette.services
+package com.samkortekaas.norminette.services
 
-import com.github.skrtks.norminette.MyBundle
+import com.samkortekaas.norminette.MyBundle
 import com.intellij.openapi.project.Project
 
 class MyProjectService(project: Project) {

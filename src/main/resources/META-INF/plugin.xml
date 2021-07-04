@@ -11,14 +11,14 @@
     <depends>com.intellij.modules.cidr.lang</depends>
 
     <extensions defaultExtensionNs="com.intellij">
-        <externalAnnotator language="ObjectiveC" implementationClass="com.github.skrtks.norminette.linter.NorminetteLinterInspection" />
-        <applicationService serviceImplementation="com.github.skrtks.norminette.services.MyApplicationService"/>
-        <projectService serviceImplementation="com.github.skrtks.norminette.services.MyProjectService"/>
-        <applicationConfigurable instance="com.github.skrtks.norminette.settings.NorminetteSettingsPanel" displayName="Norminette"/>
+        <externalAnnotator language="ObjectiveC" implementationClass="com.samkortekaas.norminette.linter.NorminetteLinterInspection" />
+        <applicationService serviceImplementation="com.samkortekaas.norminette.services.MyApplicationService"/>
+        <projectService serviceImplementation="com.samkortekaas.norminette.services.MyProjectService"/>
+        <applicationConfigurable instance="com.samkortekaas.norminette.settings.NorminetteSettingsPanel" displayName="Norminette"/>
     </extensions>
 
     <applicationListeners>
-        <listener class="com.github.skrtks.norminette.listeners.MyProjectManagerListener"
+        <listener class="com.samkortekaas.norminette.listeners.MyProjectManagerListener"
                   topic="com.intellij.openapi.project.ProjectManagerListener"/>
     </applicationListeners>
 </idea-plugin>

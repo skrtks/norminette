@@ -2,22 +2,32 @@
 <svg width="512px" height="512px" viewBox="0 0 512 512" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <title>Icon</title>
     <defs>
-        <linearGradient x1="0%" y1="0%" x2="100%" y2="100%" id="linearGradient-1">
-            <stop stop-color="#FAC515" offset="0%"></stop>
-            <stop stop-color="#F97A16" offset="100%"></stop>
+        <linearGradient x1="45.4305099%" y1="-2.04439022%" x2="68.210663%" y2="102.820398%" id="linearGradient-1">
+            <stop stop-color="#9937F2" offset="0%"></stop>
+            <stop stop-color="#774DEF" offset="100%"></stop>
         </linearGradient>
-        <filter color-interpolation-filters="auto" id="filter-2">
+        <linearGradient x1="0%" y1="0%" x2="100.793678%" y2="100%" id="linearGradient-2">
+            <stop stop-color="#A034F1" offset="0%"></stop>
+            <stop stop-color="#7F52FF" offset="100%"></stop>
+        </linearGradient>
+        <filter color-interpolation-filters="auto" id="filter-3">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 0.992157 0 0 0 0 0.956863 0 0 0 0 1.000000 0 0 0 0.600000 0"></feColorMatrix>
+        </filter>
+        <filter color-interpolation-filters="auto" id="filter-4">
             <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 0.992157 0 0 0 0 0.956863 0 0 0 0 1.000000 0 0 0 1.000000 0"></feColorMatrix>
         </filter>
     </defs>
     <g id="Icon" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
         <rect id="Transparent_backdrop" fill-opacity="0" fill="#FFFFFF" x="3" y="1" width="506" height="506"></rect>
         <rect id="Background" fill="url(#linearGradient-1)" x="9" y="9" width="494" height="494" rx="100"></rect>
-        <g id="Group-2" transform="translate(225.000000, 71.000000)" fill="#FDE68A">
-            <path d="M31.3202755,0 C48.617986,-6.73025155e-15 62.640551,14.022565 62.640551,31.3202755 L62.640551,246.679725 C62.640551,263.977435 48.617986,278 31.3202755,278 C14.022565,278 3.63979786e-14,263.977435 0,246.679725 L0,31.3202755 C1.4343551e-15,14.022565 14.022565,-3.75175807e-16 31.3202755,0 Z" id="Rectangle"></path>
-            <path d="M31.3202755,307 C48.617986,307 62.640551,321.022565 62.640551,338.320275 L62.640551,338.679725 C62.640551,355.977435 48.617986,370 31.3202755,370 C14.022565,370 5.67107226e-15,355.977435 0,338.679725 L0,338.320275 C1.4343551e-15,321.022565 14.022565,307 31.3202755,307 Z" id="Rectangle"></path>
+        <rect id="Background" fill="url(#linearGradient-2)" x="14" y="14" width="484" height="484" rx="98"></rect>
+        <g filter="url(#filter-3)" id="Group-2">
+            <g transform="translate(225.000000, 71.000000)">
+                <path d="M31.3202755,0 C48.617986,-6.73025155e-15 62.640551,14.022565 62.640551,31.3202755 L62.640551,246.679725 C62.640551,263.977435 48.617986,278 31.3202755,278 C14.022565,278 3.63979786e-14,263.977435 0,246.679725 L0,31.3202755 C1.4343551e-15,14.022565 14.022565,-3.75175807e-16 31.3202755,0 Z" id="Rectangle" fill="#FDE68A"></path>
+                <path d="M31.3202755,307 C48.617986,307 62.640551,321.022565 62.640551,338.320275 L62.640551,338.679725 C62.640551,355.977435 48.617986,370 31.3202755,370 C14.022565,370 5.67107226e-15,355.977435 0,338.679725 L0,338.320275 C1.4343551e-15,321.022565 14.022565,307 31.3202755,307 Z" id="Rectangle" fill="#FDE68A"></path>
+            </g>
         </g>
-        <g filter="url(#filter-2)" id="Group">
+        <g filter="url(#filter-4)" id="Group">
             <g transform="translate(44.543872, 158.000000)">
                 <path d="M351.524734,0.702904246 C367.912039,0.702904246 381.196574,13.9874395 381.196574,30.3747442 L381.196574,109.499651 C381.196574,125.886955 367.912039,139.171491 351.524734,139.171491 C335.13743,139.171491 321.852895,125.886955 321.852895,109.499651 L321.852895,30.3747442 C321.852895,13.9874395 335.13743,0.702904246 351.524734,0.702904246 Z" id="Rectangle" fill="#D8D8D8" transform="translate(351.524734, 69.937197) rotate(-45.000000) translate(-351.524734, -69.937197) "></path>
                 <path d="M72.2563218,0.702904246 C88.6436265,0.702904246 101.928162,13.9874395 101.928162,30.3747442 L101.928162,109.499651 C101.928162,125.886955 88.6436265,139.171491 72.2563218,139.171491 C55.8690171,139.171491 42.5844819,125.886955 42.5844819,109.499651 L42.5844819,30.3747442 C42.5844819,13.9874395 55.8690171,0.702904246 72.2563218,0.702904246 Z" id="Rectangle" fill="#D8D8D8" transform="translate(72.256322, 69.937197) rotate(45.000000) translate(-72.256322, -69.937197) "></path>
