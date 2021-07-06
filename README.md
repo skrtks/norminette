@@ -1,7 +1,6 @@
 # Norminette for CLion
 
 ![Build](https://github.com/skrtks/norminette/workflows/Build/badge.svg)
-[![Downloads](https://img.shields.io/jetbrains/plugin/d/com.samkortekaas.norminette.svg)](https://plugins.jetbrains.com/plugin/17190-norminette)
 
 <!-- Plugin description -->
 Norminette linter for CLion.
