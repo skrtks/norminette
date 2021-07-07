@@ -31,12 +31,7 @@ class NorminetteLinterInspection : ExternalAnnotator<Editor, List<NorminetteWarn
             }
             val range = TextRange(startOffset, endOffset)
 
-            if (ApplicationInfo.getInstance().build.components.first() >= 211) {
-                holder.newAnnotation(HighlightSeverity.WEAK_WARNING, warning.reason).range(range).createAnnotation()
-            }
-            else {
-                holder.createWeakWarningAnnotation(range, warning.reason)
-            }
+            holder.createWeakWarningAnnotation(range, warning.reason)
         })
     }
 
