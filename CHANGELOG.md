@@ -29,6 +29,7 @@
 - Now properly deleting temporary file for Norminette runner after use
 
 ## [Unreleased]
+## [0.0.6]
 ## [0.0.5]
 
 
