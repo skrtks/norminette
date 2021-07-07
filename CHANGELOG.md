@@ -2,6 +2,10 @@
 
 # Norminette Changelog
 
+## 0.0.6
+### Fixed
+- Removed incompatibility with older versions of CLion
+
 ## 0.0.5
 ### Updated
 - New icon 
