@@ -5,6 +5,9 @@
 <!-- Plugin description -->
 Norminette linter for CLion.
 
+### Issue reporting 🔬
+If you find an issue please report it using [this form](https://airtable.com/shreUPy5D0db3ziT8). Thanks!
+
 ### Disclaimer ⚠️
 I recommend to still check your files using Norminette before handing in your project. The plugin is in early development, and some checks might not be implemented yet.
 
