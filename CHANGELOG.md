@@ -2,6 +2,10 @@
 
 # Norminette Changelog
 
+## 0.0.7
+### Added
+- Instructions for bug reporting
+
 ## 0.0.6
 ### Fixed
 - Removed incompatibility with older versions of CLion
