@@ -1,13 +1,14 @@
 package com.samkortekaas.norminette.linter
 
+import com.intellij.codeInspection.ProblemHighlightType
 import com.intellij.lang.annotation.AnnotationHolder
 import com.intellij.lang.annotation.ExternalAnnotator
 import com.intellij.lang.annotation.HighlightSeverity
-import com.intellij.openapi.application.ApplicationInfo
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiDocumentManager
 import com.intellij.psi.PsiFile
+import com.samkortekaas.norminette.fixes.TestFix
 import java.util.function.Consumer
 
 class NorminetteLinterInspection : ExternalAnnotator<Editor, List<NorminetteWarning>>() {
@@ -31,7 +32,22 @@ class NorminetteLinterInspection : ExternalAnnotator<Editor, List<NorminetteWarn
             }
             val range = TextRange(startOffset, endOffset)
 
-            holder.createWeakWarningAnnotation(range, warning.reason)
+//            holder.createWeakWarningAnnotation(range, warning.reason)
+
+            val element = file.findElementAt(range.startOffset)
+
+            if (element != null) {
+                holder.newAnnotation(HighlightSeverity.WEAK_WARNING, warning.reason)
+                    .range(range)
+                    .highlightType(ProblemHighlightType.WEAK_WARNING)
+                    .withFix(TestFix(element))
+                    .create();
+            } else {
+                holder.newAnnotation(HighlightSeverity.WEAK_WARNING, warning.reason)
+                    .range(range)
+                    .highlightType(ProblemHighlightType.WEAK_WARNING)
+                    .create()
+            }
         })
     }
 
