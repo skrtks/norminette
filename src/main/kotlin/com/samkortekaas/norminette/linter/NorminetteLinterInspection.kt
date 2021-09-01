@@ -2,8 +2,6 @@ package com.samkortekaas.norminette.linter
 
 import com.intellij.lang.annotation.AnnotationHolder
 import com.intellij.lang.annotation.ExternalAnnotator
-import com.intellij.lang.annotation.HighlightSeverity
-import com.intellij.openapi.application.ApplicationInfo
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiDocumentManager
@@ -31,7 +29,7 @@ class NorminetteLinterInspection : ExternalAnnotator<Editor, List<NorminetteWarn
             }
             val range = TextRange(startOffset, endOffset)
 
-            holder.createWeakWarningAnnotation(range, warning.reason)
+            holder.createWeakWarningAnnotation(range, "Norminette: ${warning.reason}")
         })
     }
 
