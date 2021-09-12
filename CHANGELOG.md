@@ -2,7 +2,7 @@
 
 # Norminette Changelog
 
-## [0.1.0]
+## [Unreleased]
 ### Added
 - Added option to disable/enable Norminette
 - Made it possible to change the highlight style
@@ -42,8 +42,3 @@
 
 ### Fixed
 - Now properly deleting temporary file for Norminette runner after use
-
-## [Unreleased]
-## [0.0.8]
-### Added
-- Support for QuickFixes
