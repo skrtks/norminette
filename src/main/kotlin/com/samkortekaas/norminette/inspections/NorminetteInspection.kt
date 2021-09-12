@@ -15,9 +15,9 @@ class NorminetteInspection : LocalInspectionTool() {
 
     override fun getGroupDisplayName(): String = "C/C++"
 
-    override fun isEnabledByDefault(): Boolean = true
-
     override fun getDisplayName(): String = "Norminette"
+
+    override fun isEnabledByDefault(): Boolean = true
 
     override fun runForWholeFile(): Boolean = true
 
