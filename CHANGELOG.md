@@ -2,13 +2,6 @@
 
 # Norminette Changelog
 
-## [Unreleased]
-### Added
-- Added option to disable/enable Norminette
-- Made it possible to change the highlight style
-### Changed
-- Better placement of errors in source
-
 ## [0.0.8]
 ### Added
 - Norminette indicator in error message
@@ -42,3 +35,11 @@
 
 ### Fixed
 - Now properly deleting temporary file for Norminette runner after use
+
+## [Unreleased]
+[0.1.0]
+### Added
+- Added option to disable/enable Norminette
+- Made it possible to change the highlight style
+### Changed
+- Better placement of errors in source
