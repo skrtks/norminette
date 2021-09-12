@@ -1,10 +1,9 @@
 package com.samkortekaas.norminette.linter
 
-import com.samkortekaas.norminette.settings.NorminetteSettingsPanel
 import com.intellij.openapi.editor.Document
-import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.fileEditor.FileDocumentManager
 import com.samkortekaas.norminette.MyBundle
+import com.samkortekaas.norminette.settings.NorminetteSettingsPanel
 import org.jetbrains.annotations.NonNls
 import java.io.File
 import java.io.IOException
@@ -15,12 +14,11 @@ import java.util.concurrent.TimeUnit
 
 object NorminetteLintRunner {
 
-    fun lint(editor: Editor?): Array<NorminetteWarning> {
+    fun lint(document: Document): Array<NorminetteWarning> {
         if (NorminetteSettingsPanel.NORMINETTE_PATH_VAL.isEmpty()) NorminetteSettingsPanel.detectAndSetPath()
         val norminettePath = NorminetteSettingsPanel.NORMINETTE_PATH_VAL
         if (!isValidNorminettePath(norminettePath)) return emptyArray()
 
-        val document = editor?.document ?: return emptyArray()
         val fileExtension = FileDocumentManager.getInstance().getFile(document)?.extension ?: return emptyArray()
         val tmpFile = File.createTempFile("norminette", ".$fileExtension")
         createSyncedFile(document, tmpFile.toPath())
@@ -50,7 +48,8 @@ object NorminetteLintRunner {
         val blocks = error.split("\\s".toRegex()).filter { it != "" }
         val shortCode = blocks[1]
         val line = blocks[blocks.indexOf("(line:") + 1].filter { it.isDigit() }.toIntOrNull() ?: return null
-        return MyBundle.messageOrNull(shortCode)?.let { NorminetteWarning(line, it) }
+        val col = blocks[blocks.indexOf("col:") + 1].filter { it.isDigit() }.toIntOrNull() ?: return null
+        return MyBundle.messageOrNull(shortCode)?.let { NorminetteWarning(line, col, it) }
     }
 
 
