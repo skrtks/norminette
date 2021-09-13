@@ -47,7 +47,6 @@ class NorminetteAnnotator : ExternalAnnotator<Document, List<NorminetteWarning>>
                 return@forEach
             }
             val range = TextRange(startOffset, endOffset)
-            print("Error $range col $col\n")
             holder.createAnnotation(HighlightSeverity.WEAK_WARNING, range, "Norminette: ${warning.reason}")
         })
     }
