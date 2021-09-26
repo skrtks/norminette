@@ -7,9 +7,7 @@ import com.samkortekaas.norminette.settings.NorminetteSettingsPanel
 import org.jetbrains.annotations.NonNls
 import java.io.File
 import java.io.IOException
-import java.nio.charset.StandardCharsets
 import java.nio.file.Files
-import java.nio.file.Path
 import java.util.concurrent.TimeUnit
 
 object NorminetteLintRunner {
@@ -19,10 +17,12 @@ object NorminetteLintRunner {
         val norminettePath = NorminetteSettingsPanel.NORMINETTE_PATH_VAL
         if (!isValidNorminettePath(norminettePath)) return emptyArray()
 
-        val fileExtension = FileDocumentManager.getInstance().getFile(document)?.extension ?: return emptyArray()
-        val tmpFile = File.createTempFile("norminette", ".$fileExtension")
-        createSyncedFile(document, tmpFile.toPath())
-        val externalAnnotatorResult = "$norminettePath ${tmpFile.path}".runCommand()
+        val file = FileDocumentManager.getInstance().getFile(document) ?: return emptyArray()
+        val tmpDir = Files.createTempDirectory("norminette")
+        val tmpFile = File("$tmpDir/${file.name}")
+        tmpFile.writeText(document.text)
+        tmpFile.deleteOnExit()
+        val externalAnnotatorResult = "$norminettePath ${tmpFile.toPath()}".runCommand()
         tmpFile.delete()
         return parse(externalAnnotatorResult)
     }
@@ -32,10 +32,6 @@ object NorminetteLintRunner {
         val norminetteExecutable = File(norminettePath)
         if (!norminetteExecutable.exists() || !norminetteExecutable.canExecute()) return false
         return true
-    }
-
-    private fun createSyncedFile(doc: Document, tmp: Path) {
-        Files.newBufferedWriter(tmp, StandardCharsets.UTF_8).use { out -> out.write(doc.text) }
     }
 
     private fun parse(res: String?): Array<NorminetteWarning> {

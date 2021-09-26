@@ -5,6 +5,11 @@
 ## [Unreleased]
 ## [0.1.0]
 
+## [0.1.1]
+### Fixed
+- Showed error on header include guard that wasn't shown by Norminette in the
+terminal
+
 ## [0.1.0]
 ### Added
 - Added option to disable/enable Norminette

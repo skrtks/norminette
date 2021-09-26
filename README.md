@@ -11,8 +11,7 @@ Norminette linter for CLion.
 Please make sure that you have [Norminette](https://github.com/42School/norminette) installed!
 
 ### Issue reporting 🔬
-If you find an issue please report it using [this form](https://airtable.com/shreUPy5D0db3ziT8)
-or trough [GitHub](https://github.com/skrtks/norminette/issues/new/choose). Thanks!
+If you find an issue please report it trough [GitHub](https://github.com/skrtks/norminette/issues/new/choose). Thanks!
 
 ### Setup 🛠
 Check if Norminette is already installed on your system (run `norminette -v`). 
