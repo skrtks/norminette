@@ -30,8 +30,7 @@ object NorminetteLintRunner {
     private fun isValidNorminettePath(norminettePath: @NonNls String): Boolean {
         if (norminettePath.isEmpty()) return false
         val norminetteExecutable = File(norminettePath)
-        if (!norminetteExecutable.exists() || !norminetteExecutable.canExecute()) return false
-        return true
+        return norminetteExecutable.exists() || !norminetteExecutable.canExecute()
     }
 
     private fun parse(res: String?): Array<NorminetteWarning> {
