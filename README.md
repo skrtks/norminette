@@ -5,9 +5,9 @@
 [![Downloads](https://img.shields.io/jetbrains/plugin/d/17190-norminette.svg)](https://plugins.jetbrains.com/plugin/17190-norminette)
 
 <!-- Plugin description -->
-Norminette linter for CLion.
 
 ### Norminette v3.x is required
+#### ✅ Verified Norminette version: v3.3.4
 Please make sure that you have [Norminette](https://github.com/42School/norminette) installed!
 
 ### Issue reporting 🔬
@@ -22,7 +22,7 @@ If you have done a custom installation of Norminette, or the executable is not i
 and provide the path to your norminette executable.
 
 It is possible to change the highlight style or enable/disable highlighting trough:
-<kbd>Settings/Preferences</kbd> > <kbd>Editor</kbd> > <kbd>Inspections</kbd> > <kbd>C/C++</kbd> > <kbd>Norminette</kbd> >
+<kbd>Settings/Preferences</kbd> > <kbd>Editor</kbd> > <kbd>Inspections</kbd> > <kbd>C/C++</kbd> > <kbd>Norminette</kbd>
 
 <!-- Plugin description end -->
 

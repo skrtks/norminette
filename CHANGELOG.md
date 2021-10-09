@@ -5,6 +5,10 @@
 ## [Unreleased]
 ## [0.1.0]
 
+## [0.1.2]
+### Added
+- Support for Norminette 3.3.4
+
 ## [0.1.1]
 ### Fixed
 - Showed error on header include guard that wasn't shown by Norminette in the
