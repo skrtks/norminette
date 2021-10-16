@@ -4,7 +4,6 @@ import com.intellij.openapi.editor.Document
 import com.intellij.openapi.fileEditor.FileDocumentManager
 import com.samkortekaas.norminette.MyBundle
 import com.samkortekaas.norminette.settings.NorminetteSettingsPanel
-import org.jetbrains.annotations.NonNls
 import java.io.File
 import java.io.IOException
 import java.nio.file.Files
@@ -27,7 +26,7 @@ object NorminetteLintRunner {
         return parse(externalAnnotatorResult)
     }
 
-    private fun isValidNorminettePath(norminettePath: @NonNls String): Boolean {
+    private fun isValidNorminettePath(norminettePath: String): Boolean {
         if (norminettePath.isEmpty()) return false
         val norminetteExecutable = File(norminettePath)
         return norminetteExecutable.exists() || !norminetteExecutable.canExecute()
@@ -44,7 +43,12 @@ object NorminetteLintRunner {
         val shortCode = blocks[1]
         val line = blocks[blocks.indexOf("(line:") + 1].filter { it.isDigit() }.toIntOrNull() ?: return null
         val col = blocks[blocks.indexOf("col:") + 1].filter { it.isDigit() }.toIntOrNull() ?: return null
-        return MyBundle.messageOrNull(shortCode)?.let { NorminetteWarning(line, col, it) }
+        return if (MyBundle.containsKey(shortCode)) {
+            NorminetteWarning(line, col, MyBundle.message(shortCode))
+        }
+        else {
+            null
+        }
     }
 
 

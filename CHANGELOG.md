@@ -6,6 +6,10 @@
 ## [0.1.1]
 ## [0.1.0]
 
+## [0.1.3]
+### Fixed
+- Compatibility issue with CLion 2020.2
+
 ## [0.1.2]
 ### Added
 - Support for Norminette 3.3.4
