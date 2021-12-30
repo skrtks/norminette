@@ -7,7 +7,7 @@
 <!-- Plugin description -->
 
 ### Norminette v3.x is required
-#### ✅ Verified Norminette version: v3.3.4
+#### ✅ Verified Norminette version: v3.3.51
 Please make sure that you have [Norminette](https://github.com/42School/norminette) installed!
 
 ### Issue reporting 🔬
