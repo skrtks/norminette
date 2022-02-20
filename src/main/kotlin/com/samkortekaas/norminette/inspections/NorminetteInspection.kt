@@ -6,7 +6,7 @@ import com.intellij.codeInspection.ProblemsHolder
 import com.intellij.psi.PsiElementVisitor
 import com.intellij.psi.PsiFile
 import com.jetbrains.cidr.lang.psi.visitors.OCVisitor
-import com.samkortekaas.norminette.linter.NorminetteAnnotator
+import com.samkortekaas.norminette.annotator.NorminetteAnnotator
 
 
 class NorminetteInspection : LocalInspectionTool() {
@@ -40,22 +40,4 @@ class NorminetteInspection : LocalInspectionTool() {
             }
         }
     }
-
-    // todo: For adding options in a future update
-//    var ignoredErrors: List<String> = ArrayList()
-//    override fun createOptionsPanel(): JComponent {
-//        val form = ListEditForm(
-//            "Norminette settings",
-//            ignoredErrors
-//        )
-//        return form.contentPanel
-//    }
-//
-//    override fun getShortName(): String {
-//        return INSPECTION_SHORT_NAME
-//    }
-//
-//    companion object {
-//        const val INSPECTION_SHORT_NAME = "NorminetteInspection"
-//    }
 }

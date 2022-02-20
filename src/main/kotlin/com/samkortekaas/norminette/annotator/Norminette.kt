@@ -1,4 +1,4 @@
-package com.samkortekaas.norminette.linter
+package com.samkortekaas.norminette.annotator
 
 import com.intellij.openapi.editor.Document
 import com.intellij.openapi.fileEditor.FileDocumentManager
@@ -9,9 +9,9 @@ import java.io.IOException
 import java.nio.file.Files
 import java.util.concurrent.TimeUnit
 
-object NorminetteLintRunner {
+object Norminette {
 
-    fun lint(document: Document): Array<NorminetteWarning> {
+    fun doAnnotate(document: Document): Array<NorminetteWarning> {
         if (NorminetteSettingsPanel.NORMINETTE_PATH_VAL.isEmpty()) NorminetteSettingsPanel.detectAndSetPath()
         val norminettePath = NorminetteSettingsPanel.NORMINETTE_PATH_VAL
         if (!isValidNorminettePath(norminettePath)) return emptyArray()

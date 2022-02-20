@@ -1,4 +1,4 @@
-package com.samkortekaas.norminette.linter
+package com.samkortekaas.norminette.annotator
 
 class NorminetteWarning (
     val line: Int,

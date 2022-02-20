@@ -1,4 +1,4 @@
-package com.samkortekaas.norminette.linter
+package com.samkortekaas.norminette.annotator
 
 import com.intellij.lang.annotation.AnnotationHolder
 import com.intellij.lang.annotation.ExternalAnnotator
@@ -16,7 +16,7 @@ class NorminetteAnnotator : ExternalAnnotator<Document, List<NorminetteWarning>>
     }
 
     override fun doAnnotate(document: Document): List<NorminetteWarning> {
-        return NorminetteLintRunner.lint(document).toList()
+        return Norminette.doAnnotate(document).toList()
     }
 
     override fun apply(file: PsiFile, warnings: List<NorminetteWarning>, holder: AnnotationHolder) {
@@ -27,7 +27,6 @@ class NorminetteAnnotator : ExternalAnnotator<Document, List<NorminetteWarning>>
             val lineEndOffset = document.getLineEndOffset(line)
             val textInLine = document.getText(TextRange(lineStartOffset, lineEndOffset))
             val correctedCol = if (warning.col > 0) warning.col - 1 else warning.col
-//            val tabSize = CodeStyle.getIndentOptions(file).TAB_SIZE // Norminette v3 always assumes tabs as 4 spaces, so not needed atm
 
             var col = 0
             var offset = 0
