@@ -3,6 +3,7 @@
 # Norminette Changelog
 
 ## [Unreleased]
+## [0.1.5]
 ### Added
 - Compatibility for CLion 2022.1
 
