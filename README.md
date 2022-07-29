@@ -37,3 +37,13 @@ It is possible to change the highlight style or enable/disable highlighting trou
 
   Download the [latest release](https://github.com/skrtks/norminette/releases/latest) and install it manually using
   <kbd>Settings/Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>⚙️</kbd> > <kbd>Install plugin from disk...</kbd>
+  
+### Contributing
+If you have a feature or fix that you would like to contribute, please take a look at the following steps:
+1. Clone the repo: `git clone git@github.com:skrtks/norminette.git`
+2. Create your fork `git remote add my-remote git@github.com:<username>/norminette.git`
+3. Create a branch `git checkout -b my-branch`
+4. Push the branch to your remote `git push --set-upstream my-remote my-branch`
+5. Open a PR in GitHub
+6. Someone (probably me) will review the changes, and merge the contribution into main
+7. 🎉
