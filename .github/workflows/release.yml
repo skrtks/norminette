@@ -69,4 +69,5 @@ jobs:
         uses: ad-m/github-push-action@master
         with:
           branch: main
+          persist-credentials: false
           github_token: ${{ secrets.GITHUB_TOKEN }}
