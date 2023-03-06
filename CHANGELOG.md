@@ -4,7 +4,7 @@
 
 ## [Unreleased]
 ### Added
-- Compatibility for CLion 2022.*
+- Compatibility for CLion 2023.*
 
 ## [0.1.4]
 ### Fixed
