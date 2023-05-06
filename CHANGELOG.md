@@ -3,6 +3,9 @@
 # Norminette Changelog
 
 ## [Unreleased]
+
+## [0.1.8] - 2023-05-06
+
 ### Added
 - No version requirement
 
@@ -83,7 +86,8 @@ terminal
 ### Fixed
 - Now properly deleting temporary file for Norminette runner after use
 
-[Unreleased]: https://github.com/skrtks/norminette/compare/v0.1.7...HEAD
+[Unreleased]: https://github.com/skrtks/norminette/compare/v0.1.8...HEAD
+[0.1.8]: https://github.com/skrtks/norminette/compare/v0.1.7...v0.1.8
 [0.1.7]: https://github.com/skrtks/norminette/compare/v0.1.4...v0.1.7
 [0.1.4]: https://github.com/skrtks/norminette/compare/v0.1.3...v0.1.4
 [0.1.3]: https://github.com/skrtks/norminette/compare/v0.1.2...v0.1.3
