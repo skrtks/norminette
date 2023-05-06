@@ -3,6 +3,8 @@
 # Norminette Changelog
 
 ## [Unreleased]
+### Added
+- No version requirement
 
 ## [0.1.7] - 2023-04-22
 
